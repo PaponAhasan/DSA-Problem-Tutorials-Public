@@ -29,9 +29,9 @@ Node* Create_Node(int data, Node* next){
     return new_node;
 }
 
-Node* Append(Node *head){
+Node* Append(Node *head, int data){
     
-    Node *new_node = Create_Node(20, NULL); /* [20 | NULL] */
+    Node *new_node = Create_Node(data, NULL); /* [20 | NULL] */
     
     Node *current_node = head;
     
@@ -61,7 +61,7 @@ int main() {
 	
 	head = Create_Node(10, NULL);  /* [10 | NULL] */
 	
-	Append(head);
+	Append(head, 20);
 	
 	Print_Linked_List(head);
 
