@@ -129,5 +129,106 @@ int main() {
     InsertNode(head->next->next, 70);
     Print_Linked_List(head);
     
+   return 0;
+}
+
+
+# DELETE
+
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef struct node Node;
+
+struct node{
+   int data;
+   node *next;
+};
+
+Node* Create_Node(int data, Node* next){
+    
+    Node *new_node = (Node*)malloc(sizeof(Node)); /* void*  or NULL */
+    
+    if(new_node == NULL) {
+        printf("Error!\n");
+        exit(1);
+    }
+    
+    // new_node = [data | next]
+    
+    new_node->data = data;
+    new_node->next = next;
+    
+    return new_node;
+}
+
+Node* Append(Node *head, int data){
+    /* Complexity O(n) */
+    Node *new_node = Create_Node(data, NULL); /* [20 | NULL] */
+    
+    Node *current_node = head;
+    
+    while(current_node->next != NULL){
+        current_node = current_node->next;
+    }
+    
+    current_node->next = new_node;
+    
+    return head;
+}
+
+Node *remove_node(Node *head, Node *del_node){
+    
+    if(del_node == head){
+        head = del_node->next;
+        free(del_node);
+        return head;
+    }
+    
+    Node *current_node = head;
+    
+    while(current_node != NULL){
+        if(current_node->next == del_node){
+            break;
+        }
+        current_node = current_node->next;
+    }
+    
+    if(current_node == NULL) return head;
+    
+    current_node->next = del_node->next;
+    
+    free(del_node);
+    
+    return head;
+}
+
+void Print_Linked_List(Node* head){
+    
+    Node *current_node = head;
+        
+    while(current_node != NULL){
+        printf("%d ", current_node->data); /* 10 | 20 | NULL */
+        current_node = current_node->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    
+	Node *head, *temp;
+	
+	head = Create_Node(10, NULL);  /* [10 | NULL]--> [  |  ] */
+	
+	printf("Append : ");
+	head = Append(head, 20); /* [10 | 10 er addr]--> [ 20  | NULL ] */
+	head = Append(head, 30);
+	head = Append(head, 40);
+	head = Append(head, 50);
+	Print_Linked_List(head);
+    
+    head = remove_node(head, head->next);
+    Print_Linked_List(head);
+    
 	return 0;
 }
