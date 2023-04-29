@@ -31,9 +31,14 @@ void InsertAtTailUsingHead(Node* &head, int data){
   tail = new_node;
 }
 
-void InsertAtTail(Node* &tail, int data){
+void InsertAtTail(Node* &head, Node* &tail, int data){
   /*O(1)*/
   Node* new_node = new Node(data);
+  if(tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
   tail->next = new_node;
   tail = new_node;
 }
@@ -83,7 +88,7 @@ int main() {
   
   printf("----- Insert Tail----\n");
   InsertAtTailUsingHead(head, 40);
-  InsertAtTail(tail, 50);
+  InsertAtTail(head, tail, 50);
   Print(head);
   
   printf("----- Insert Position----\n");
@@ -91,7 +96,7 @@ int main() {
   Print(head);
   
   printf("----- Insert Tail----\n");
-  InsertAtTail(tail, 70);
+  InsertAtTail(head, tail, 70);
   Print(head);
   
   cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
