@@ -1,4 +1,4 @@
-### Insertion
+### Insertion Singly Linked List
 
 ```c++
 class Node{
@@ -11,18 +11,26 @@ class Node{
   }
 };
 
-Node* tail;
-
-void InsertAtFront(Node* &head, int data){
+void InsertAtFront(Node* &head, Node* &tail, int data){
   /*O(1)*/
-  Node* tmp = new Node(data);
-  tmp->next = head;
-  head = tmp;
+  Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
+  new_node->next = head;
+  head = new_node;
 }
 
-void InsertAtTailUsingHead(Node* &head, int data){
+void InsertAtTailUsingHead(Node* &head, Node* &tail, int data){
   /*O(n)*/
   Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
   Node* tmp = head;
   while(tmp->next != NULL){
      tmp = tmp->next;
@@ -34,7 +42,7 @@ void InsertAtTailUsingHead(Node* &head, int data){
 void InsertAtTail(Node* &head, Node* &tail, int data){
   /*O(1)*/
   Node* new_node = new Node(data);
-  if(tail == NULL){
+  if(head == NULL && tail == NULL){
     head = new_node;
     tail = new_node;
     return;
@@ -43,11 +51,16 @@ void InsertAtTail(Node* &head, Node* &tail, int data){
   tail = new_node;
 }
 
-void InsertAtPosition(Node* &head, int data, int position){
+void InsertAtPosition(Node* &head, Node* &tail, int data, int position){
   /*O(n)*/
   Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
   if(position == 1){
-    InsertAtFront(head, data);
+    InsertAtFront(head, tail, data);
     return;
   }
   
@@ -78,21 +91,21 @@ void Print(Node* &head){
 
 int main() {
   Node* head = NULL;
-  //Node* tail = NULL;
+  Node* tail = NULL;
   
   printf("----- Insert Front----\n");
-  InsertAtFront(head, 20);
+  InsertAtFront(head, tail, 20);
   tail = head; // first node
-  InsertAtFront(head, 30);
+  InsertAtFront(head, tail, 30);
   Print(head);
   
   printf("----- Insert Tail----\n");
-  InsertAtTailUsingHead(head, 40);
+  InsertAtTailUsingHead(head, tail, 40);
   InsertAtTail(head, tail, 50);
   Print(head);
   
   printf("----- Insert Position----\n");
-  InsertAtPosition(head, 60, 2);
+  InsertAtPosition(head, tail, 60, 2);
   Print(head);
   
   printf("----- Insert Tail----\n");
