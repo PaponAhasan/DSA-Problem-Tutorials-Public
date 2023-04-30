@@ -116,3 +116,74 @@ int main() {
   return 0;
 }
 ```
+
+### Delete Singly Linked List
+
+```c++
+class Node{
+  public:
+  int data;
+  Node* next;
+  Node(int data){
+    this->data = data;
+    this->next = NULL;
+  }
+};
+
+void InsertAtTail(Node* &head, Node* &tail, int data){
+  /*O(1)*/
+  Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
+  tail->next = new_node;
+  tail = new_node;
+}
+
+void DeleteAtNode(Node* &head, Node* &tail, int target){
+  Node* temp = head;
+  Node* prev = NULL;
+  
+  if(temp != NULL && temp->data == target){
+    head = temp->next;
+    delete temp;
+    return;
+  }
+  
+  while(temp != NULL && temp->data != target){
+    prev = temp;
+    temp = temp->next;
+  }
+  if(temp != NULL){
+    prev->next = temp->next;
+  }
+  delete temp;
+}
+
+void Print(Node* &head){
+  Node* tmp = head;
+  while(tmp != NULL){
+    cout << tmp->data << "\n";
+    tmp = tmp->next;
+  }
+}
+
+int main() {
+  Node* head = NULL;
+  Node* tail = NULL;
+  
+  printf("----- Insert Tail----\n");
+  InsertAtTail(head, tail, 20);
+  InsertAtTail(head, tail, 50);
+  InsertAtTail(head, tail, 150);
+  Print(head);
+  
+  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  
+  DeleteAtNode(head, tail, 20);
+  Print(head);
+  return 0;
+}
+```
