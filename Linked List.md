@@ -190,3 +190,123 @@ int main() {
   return 0;
 }
 ```
+
+### Insertion Doubly Linked List
+
+```c++
+class Node{
+  public:
+  int data;
+  Node* prev;
+  Node* next;
+  Node(int data){
+    this->data = data;
+    this->prev = NULL;
+    this->next = NULL;
+  }
+};
+
+void InsertAtFront(Node* &head, Node* &tail, int data){
+  /*O(1)*/
+  Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
+  new_node->next = head;
+  head->prev = new_node;
+  head = new_node;
+}
+
+void InsertAtTail(Node* &head, Node* &tail, int data){
+  /*O(1)*/
+  Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
+  tail->next = new_node;
+  new_node->prev = tail;
+  tail = new_node;
+}
+
+void InsertAtPosition(Node* &head, Node* &tail, int data, int position){
+  /*O(n)*/
+  Node* new_node = new Node(data);
+  if(head == NULL && tail == NULL){
+    head = new_node;
+    tail = new_node;
+    return;
+  }
+  if(position == 1){
+    InsertAtFront(head, tail, data);
+    return;
+  }
+  
+  Node* tmp = head;
+  int i = 1;
+  while(i < position - 1){
+    tmp = tmp->next;  /*tmp is prvious node in position*/
+    i++;
+  }
+ 
+  if(tmp != NULL){
+    new_node->next = tmp->next;
+    tmp->next->prev = new_node;
+    new_node->prev = tmp;
+    tmp->next = new_node;
+    if(new_node->next == NULL){
+      tail = new_node;
+    }
+    return;
+  }
+  cout << "position is out of range" << '\n';
+}
+
+void PrintHeadToTail(Node* &head){
+  cout << "Traverse Head to Tail : \n";
+  Node* temp = head;
+  while(temp != NULL){
+    cout << temp->data << "\n";
+    temp = temp->next;
+  }
+}
+
+void PrintTailToHead(Node* &tail){
+  cout << "Traverse Tail to Head : \n";
+  Node* temp = tail;
+  while(temp != NULL){
+    cout << temp->data << "\n";
+    temp = temp->prev;
+  }
+}
+
+int main() {
+  Node* head = NULL;
+  Node* tail = NULL;
+  
+  printf("----- Insert Front ----\n");
+  InsertAtFront(head, tail, 10);
+  InsertAtFront(head, tail, 40);
+  InsertAtFront(head, tail, 140);
+  PrintHeadToTail(head);
+  PrintTailToHead(tail);
+  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  
+  printf("\n----- Insert Tail----\n");
+  InsertAtTail(head, tail, 20);
+  InsertAtTail(head, tail, 50);
+  InsertAtTail(head, tail, 150);
+  PrintHeadToTail(head);
+  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  
+  printf("----- Insert Position----\n");
+  InsertAtPosition(head, tail, 60, 0);
+  PrintHeadToTail(head);
+  PrintTailToHead(tail);
+  
+  return 0;
+}
+```
