@@ -147,7 +147,14 @@ void DeleteAtNode(Node* &head, Node* &tail, int target){
   Node* prev = NULL;
   
   if(temp != NULL && temp->data == target){
-    head = temp->next;
+    if(temp->next == NULL){
+      head = NULL;
+      tail = NULL;
+    }
+    else {
+      head = temp->next;
+      temp->next = NULL;
+    }
     delete temp;
     return;
   }
@@ -173,6 +180,13 @@ void Print(Node* &head){
   }
 }
 
+void PrintHeadTail(Node* &head, Node* &tail){
+  if(head != NULL && tail != NULL){
+    cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  }
+  else cout << "Stack is empty" << '\n';
+}
+
 int main() {
   Node* head = NULL;
   Node* tail = NULL;
@@ -182,11 +196,11 @@ int main() {
   InsertAtTail(head, tail, 50);
   InsertAtTail(head, tail, 150);
   Print(head);
-  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  PrintHeadTail(head, tail);
   
-  DeleteAtNode(head, tail, 20);
+  DeleteAtNode(head, tail, 50);
   Print(head);
-  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  PrintHeadTail(head, tail);
   return 0;
 }
 ```
