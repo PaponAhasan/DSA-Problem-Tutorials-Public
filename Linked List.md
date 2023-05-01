@@ -303,7 +303,7 @@ int main() {
   cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
   
   printf("----- Insert Position----\n");
-  InsertAtPosition(head, tail, 60, 0);
+  InsertAtPosition(head, tail, 60, 2);
   PrintHeadToTail(head);
   PrintTailToHead(tail);
   
