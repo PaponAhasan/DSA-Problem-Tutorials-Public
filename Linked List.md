@@ -342,15 +342,21 @@ void InsertAtTail(Node* &head, Node* &tail, int data){
 void DeleteAtNode(Node* &head, Node* &tail, int target){
   Node* curr = head;
   Node* currPrev = NULL;
-  
+  /* delete node is first node*/
   if(curr != NULL && curr->data == target){
-    curr->next->prev = NULL;
-    head = curr->next;
-    curr->next = NULL;
+    if(curr->next != NULL){
+      curr->next->prev = NULL;
+      head = curr->next;
+      curr->next = NULL;
+    }
+    else{
+      head = NULL;
+      tail = NULL;
+    }
     delete curr;
     return;
   }
-  
+  /* otherwise*/
   while(curr != NULL && curr->data != target){
     currPrev = curr;
     curr = curr->next;
@@ -371,20 +377,33 @@ void DeleteAtNode(Node* &head, Node* &tail, int target){
 
 void PrintHeadToTail(Node* &head){
   cout << "Traverse Head to Tail : \n";
-  Node* temp = head;
-  while(temp != NULL){
-    cout << temp->data << "\n";
-    temp = temp->next;
+  if(head == NULL) cout << "Stack is empty" << '\n';
+  else{
+    Node* temp = head;
+    while(temp != NULL){
+      cout << temp->data << "\n";
+      temp = temp->next;
+    }
   }
 }
 
 void PrintTailToHead(Node* &tail){
   cout << "Traverse Tail to Head : \n";
-  Node* temp = tail;
-  while(temp != NULL){
-    cout << temp->data << "\n";
-    temp = temp->prev;
+  if(tail == NULL) cout << "Stack is empty" << '\n';
+  else{
+    Node* temp = tail;
+    while(temp != NULL){
+      cout << temp->data << "\n";
+      temp = temp->prev;
+    }
   }
+}
+
+void PrintHeadTail(Node* &head, Node* &tail){
+  if(head != NULL && tail != NULL){
+    cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  }
+  else cout << "Stack is empty" << '\n';
 }
 
 int main() {
@@ -396,12 +415,12 @@ int main() {
   InsertAtTail(head, tail, 50);
   InsertAtTail(head, tail, 150);
   PrintHeadToTail(head);
-  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  PrintHeadTail(head, tail);
   
   DeleteAtNode(head, tail, 50);
   PrintHeadToTail(head);
   PrintTailToHead(tail);
-  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
+  PrintHeadTail(head, tail);
   return 0;
 }
 ```
