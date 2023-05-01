@@ -117,7 +117,7 @@ int main() {
 }
 ```
 
-### Delete Singly Linked List
+### Deletion Singly Linked List
 
 ```c++
 class Node{
@@ -158,6 +158,9 @@ void DeleteAtNode(Node* &head, Node* &tail, int target){
   }
   if(temp != NULL){
     prev->next = temp->next;
+    if(prev->next == NULL){
+      tail = prev;
+    }
   }
   delete temp;
 }
@@ -179,11 +182,11 @@ int main() {
   InsertAtTail(head, tail, 50);
   InsertAtTail(head, tail, 150);
   Print(head);
-  
   cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
   
   DeleteAtNode(head, tail, 20);
   Print(head);
+  cout << "Head : " << head->data << " Tail: " << tail->data << "\n";
   return 0;
 }
 ```
