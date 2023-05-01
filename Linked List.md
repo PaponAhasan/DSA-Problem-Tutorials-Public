@@ -390,9 +390,9 @@ void DeleteAtNode(Node* &head, Node* &tail, int target){
 }
 
 void PrintHeadToTail(Node* &head){
-  cout << "Traverse Head to Tail : \n";
   if(head == NULL) cout << "Stack is empty" << '\n';
   else{
+    cout << "Traverse Head to Tail : \n";
     Node* temp = head;
     while(temp != NULL){
       cout << temp->data << "\n";
@@ -402,9 +402,9 @@ void PrintHeadToTail(Node* &head){
 }
 
 void PrintTailToHead(Node* &tail){
-  cout << "Traverse Tail to Head : \n";
   if(tail == NULL) cout << "Stack is empty" << '\n';
   else{
+    cout << "Traverse Tail to Head : \n";
     Node* temp = tail;
     while(temp != NULL){
       cout << temp->data << "\n";
