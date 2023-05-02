@@ -438,3 +438,81 @@ int main() {
   return 0;
 }
 ```
+
+### Insertion Doubly Linked List
+
+```c++
+class Node{
+  public:
+  int data;
+  Node* next;
+  Node(int data){
+    this->data = data;
+    this->next = NULL;
+  }
+};
+
+void InsertAtTail(Node* &tail, int data){
+  /*O(1)*/
+  Node* new_node = new Node(data);
+  if(tail == NULL){
+    new_node->next = new_node;
+    tail = new_node;
+  }
+  else{
+    new_node->next = tail->next;
+    tail->next = new_node;
+    tail = new_node;
+  }
+}
+
+void InsertAfterElement(Node* &tail, int element, int data){
+  /*O(1)*/
+  Node* new_node = new Node(data);
+  if(tail == NULL){
+    new_node->next = new_node;
+    tail = new_node;
+  }
+  else{
+    Node* curr = tail->next;
+    while(curr->data != element && curr != tail){
+       curr = curr->next;
+    }
+    if(curr->data == element){
+       new_node->next = curr->next;
+       curr->next = new_node;
+       if(tail == curr) tail = new_node;
+    }
+    else{
+      cout << "Not Found: " << element << "\n";
+    }
+  }
+}
+
+void Print(Node* &tail){
+  Node* tmp = tail;
+  do{
+     tmp = tmp->next;
+     cout << tmp->data << "\n";
+  }while(tmp != tail);
+}
+
+int main() {
+  Node* tail = NULL;
+  
+  printf("----- Insert Tail----\n");
+  InsertAtTail(tail, 20);
+  InsertAtTail(tail, 50);
+  InsertAtTail(tail, 70);
+  Print(tail);
+  cout << "Head : " << tail->next->data << " Tail: " << tail->data << "\n";
+  
+  printf("----- Insert After Element----\n");
+  InsertAfterElement(tail, 20, 30);
+  InsertAfterElement(tail, 70, 90);
+  InsertAfterElement(tail, 20, 10);
+  Print(tail);
+  cout << "Head : " << tail->next->data << " Tail: " << tail->data << "\n";
+  return 0;
+}
+```
