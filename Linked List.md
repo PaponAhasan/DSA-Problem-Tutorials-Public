@@ -603,3 +603,117 @@ int main() {
   return 0;
 }
 ```
+
+### Insertion & Deletion Doubly Circular Linked List
+
+```c++
+class Node{
+  public:
+  int data;
+  Node* prev;
+  Node* next;
+  Node(int data){
+    this->data = data;
+    this->prev = NULL;
+    this->next = NULL;
+  }
+};
+
+void InsertAtTail(Node* &tail, int data){
+  /*O(1)*/
+  Node* new_node = new Node(data);
+  if(tail == NULL){
+    new_node->prev = new_node->next = new_node;
+    tail = new_node;
+  }
+  else{
+    new_node->next = tail->next;
+    tail->next = new_node;
+    new_node->prev = tail;
+    tail = new_node;
+    tail->next->prev = new_node;
+  }
+}
+
+void DeleteNode(Node* &tail, int target){
+  if(tail == NULL || (tail == tail->next && tail->data == target)){
+    tail = NULL;
+    return;
+  }
+  Node* prevCurr = tail;
+  Node* curr = tail->next;
+  while(curr->data != target && curr != tail){
+    prevCurr = curr;
+    curr = curr->next;
+  }
+  if(curr->data == target){
+    prevCurr->next = curr->next;
+    curr->prev = NULL;
+    curr->next->prev = prevCurr;
+    curr->next = NULL;
+    if(curr == tail) tail = prevCurr;
+    delete curr;
+  }
+  else{
+    cout << "Not Found : " << target << '\n';
+  }
+}
+
+void PrintHeadToTail(Node* &tail){
+  cout << "Print Head To Tail : " << "\n";
+  if(tail == NULL){
+    cout << "Empty List" << '\n';
+    return;
+  }
+  Node* tmp = tail;
+  do{
+     tmp = tmp->next;
+     cout << tmp->data << "\n";
+  }while(tmp != tail);
+}
+
+void PrintTailToHead(Node* &tail){
+  cout << "Print Tail To Head : " << "\n";
+  if(tail == NULL){
+    cout << "Empty List" << '\n';
+    return;
+  }
+  Node* tmp = tail;
+  do{
+    cout << tmp->data << "\n";
+    tmp = tmp->prev;
+  }while(tmp != tail);
+}
+
+void HeadTail(Node* &tail){
+  if(tail != NULL){
+    cout << "Head : " << tail->next->data << " Tail: " << tail->data << "\n";
+  }
+  else cout << "List is empty" << '\n';
+}
+
+int main() {
+  Node* tail = NULL;
+  
+  printf("----- Insert Tail----\n");
+  InsertAtTail(tail, 20);
+  InsertAtTail(tail, 50);
+  InsertAtTail(tail, 70);
+  PrintHeadToTail(tail);
+  PrintTailToHead(tail);
+  HeadTail(tail);
+  
+  printf("----- Delete Node----\n");
+  DeleteNode(tail, 70);
+  PrintHeadToTail(tail);
+  PrintTailToHead(tail);
+  HeadTail(tail);
+  return 0;
+}
+
+/*
+when emty list 
+when 1 element
+when not found data/position
+*/
+```
