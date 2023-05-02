@@ -545,6 +545,7 @@ void InsertAtTail(Node* &tail, int data){
 }
 
 void DeleteNode(Node* &tail, int target){
+  /*if list is null or list have 1 element and its equal to target*/
   if(tail == NULL || (tail == tail->next && tail->data == target)){
     tail = NULL;
     return;
