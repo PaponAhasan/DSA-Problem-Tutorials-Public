@@ -439,7 +439,7 @@ int main() {
 }
 ```
 
-### Insertion Doubly Linked List
+### Insertion Circular Linked List
 
 ```c++
 class Node{
@@ -517,7 +517,7 @@ int main() {
 }
 ```
 
-### Deletion Doubly Linked List
+### Deletion Circular Linked List
 
 ```c++
 class Node{
